@@ -1,0 +1,49 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1e1e2f;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  margin-bottom: 30px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #ccc;
+  padding: 8px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  background: #2f2f45;
+  color: white;
+}
+
+.sidebar a.active {
+  background: #4e73df;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+  background: #f4f6f9;
+  overflow-y: auto;
+}
