@@ -1,0 +1,30 @@
+.dashboard-container {
+  padding: 40px;
+  text-align: center;
+}
+
+.button-grid {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.square-button {
+  width: 200px;
+  height: 200px;
+  background-color: #2d89ef;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.square-button:hover {
+  background-color: #1b5fa7;
+  transform: scale(1.05);
+}

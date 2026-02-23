@@ -1,0 +1,37 @@
+<h2>New Game</h2>
+
+<table class="score-table">
+  <thead>
+    <tr>
+      <th>Hole</th>
+      <th>Par</th>
+      <th>Distance</th>
+      <th>Strokes</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let hole of holes">
+      <td>{{ hole.holeNumber }}</td>
+
+      <td>
+        <input type="number" [(ngModel)]="hole.par">
+      </td>
+
+      <td>
+        <input type="number" [(ngModel)]="hole.distance">
+      </td>
+
+      <td>
+        <input type="number" [(ngModel)]="hole.strokes">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="totals">
+  <p>Total Par: {{ totalPar }}</p>
+  <p>Total Strokes: {{ totalStrokes }}</p>
+</div>
+
+<button (click)="saveGame()">Save Game</button>

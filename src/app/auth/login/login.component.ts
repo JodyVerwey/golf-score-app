@@ -15,12 +15,16 @@ export class LoginComponent {
   password = '';
   error = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+  ) {}
 
   login() {
     this.error = '';
 
-    this.auth.login(this.email, this.password)
+    this.auth
+      .login(this.email, this.password)
       .then(({ user }) => {
         if (!user) {
           this.error = 'Login failed';
@@ -34,6 +38,10 @@ export class LoginComponent {
 
         this.router.navigate(['/dashboard']);
       })
-      .catch(err => this.error = err.message);
+      .catch((err) => (this.error = err.message));
+  }
+
+  register() {
+    this.router.navigate(['/register']);
   }
 }
