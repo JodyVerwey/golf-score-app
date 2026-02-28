@@ -8,19 +8,42 @@ import {
   User,
 } from '@angular/fire/auth';
 
+import {
+  Firestore,
+  doc,
+  setDoc,
+  serverTimestamp,
+} from '@angular/fire/firestore';
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private auth: Auth) {}
+  constructor(
+    private auth: Auth,
+    private firestore: Firestore,
+  ) {}
 
-  register(email: string, password: string): Promise<void> {
-    return createUserWithEmailAndPassword(this.auth, email, password).then(
-      ({ user }) => {
-        if (!user) {
-          throw new Error('User not created');
-        }
-        return sendEmailVerification(user);
-      },
+  async register(email: string, password: string): Promise<void> {
+    const cred = await createUserWithEmailAndPassword(
+      this.auth,
+      email,
+      password,
     );
+
+    if (!cred.user) {
+      throw new Error('User not created');
+    }
+
+    // 🔥 Create Firestore user document
+    await setDoc(doc(this.firestore, 'users', cred.user.uid), {
+      email: cred.user.email,
+      createdAt: serverTimestamp(),
+    });
+
+    // 🔥 Send verification email
+    await sendEmailVerification(cred.user);
+
+    // Optional but recommended
+    await signOut(this.auth);
   }
 
   login(email: string, password: string) {

@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { deleteDoc, doc } from '@angular/fire/firestore';
+
 import {
   Firestore,
   collection,
@@ -38,5 +40,12 @@ export class ManageUsersComponent {
     const q = query(usersRef, orderBy('createdAt', 'desc'));
 
     this.users$ = collectionData(q, { idField: 'id' });
+  }
+
+  async deleteUser(userId: string) {
+    const confirmed = confirm('Are you sure you want to delete this user?');
+    if (!confirmed) return;
+
+    await deleteDoc(doc(this.firestore, 'users', userId));
   }
 }
