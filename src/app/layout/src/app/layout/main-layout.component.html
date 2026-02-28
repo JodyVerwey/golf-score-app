@@ -1,17 +1,34 @@
 <div class="layout">
-
+  <!-- Sidebar -->
   <aside class="sidebar">
     <h2 class="logo">Golf</h2>
 
     <nav>
       <a routerLink="/game" routerLinkActive="active">Game</a>
       <a routerLink="/history" routerLinkActive="active">History</a>
-      <a routerLink="/manage" routerLinkActive="active">Manage</a>
+      <a
+        *ngIf="(user$ | async)?.email === 'jodyverwey22@gmail.com'"
+        routerLink="/manage"
+        routerLinkActive="active"
+      >
+        Manage
+      </a>
     </nav>
   </aside>
 
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
+  <!-- Main Area -->
+  <div class="main-area">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="right" *ngIf="user$ | async as user">
+        <span class="email">{{ user.email }}</span>
+        <button (click)="logout()">Logout</button>
+      </div>
+    </header>
 
+    <!-- Page Content -->
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

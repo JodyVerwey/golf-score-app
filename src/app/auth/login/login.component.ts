@@ -25,12 +25,13 @@ export class LoginComponent {
 
     this.auth
       .login(this.email, this.password)
-      .then(({ user }) => {
+      .then(async ({ user }) => {
         if (!user) {
           this.error = 'Login failed';
           return;
         }
 
+        await user.reload();
         if (!user.emailVerified) {
           this.error = 'Please verify your email before logging in.';
           return;
@@ -40,7 +41,6 @@ export class LoginComponent {
       })
       .catch((err) => (this.error = err.message));
   }
-
   register() {
     this.router.navigate(['/register']);
   }
