@@ -1,13 +1,16 @@
+import { Timestamp } from '@angular/fire/firestore';
+
 export interface Hole {
   holeNumber: number;
   par: number;
-  distance: number;   // meters or yards
-  strokes: number;    // shots taken
+  distance: number;
+  strokes: number;
 }
 
 export interface Game {
   id?: string;
-  createdAt: Date;
+  courseName?: string; // optional
+  createdAt: Timestamp; // 🔥 MUST be Timestamp
   totalPar: number;
   totalStrokes: number;
   holes: Hole[];

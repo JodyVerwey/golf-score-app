@@ -2,28 +2,86 @@
 
 <div class="history-container">
   <ng-container *ngIf="games$ | async as games; else loading">
-    <!-- Empty state -->
-    <div *ngIf="games.length === 0" class="empty">No games played yet.</div>
 
-    <!-- Game cards -->
-    <div class="game-card" *ngFor="let game of games">
-      <div class="left">
-        <strong>{{ game.courseName }}</strong>
+    <div *ngIf="games.length === 0" class="empty">
+      No games played yet.
+    </div>
 
-        <div class="date">
-          {{ game.createdAt.toDate() | date: "mediumDate" }}
+    <div
+      class="game-card"
+      *ngFor="let game of games"
+      (click)="toggle(game.id!)"
+      [class.expanded]="expandedGameId === game.id"
+    >
+
+      <!-- Header -->
+      <div class="card-header">
+        <div>
+          <strong>{{ game.courseName || 'Golf Round' }}</strong>
+          <div class="date">
+            {{ game.createdAt.toDate() | date:'mediumDate' }}
+          </div>
+        </div>
+
+        <div class="score-badge"
+             [class.positive]="getScoreDiff(game) > 0"
+             [class.negative]="getScoreDiff(game) < 0"
+             [class.even]="getScoreDiff(game) === 0">
+          {{ game.totalStrokes }}
         </div>
       </div>
 
-      <div class="right">
-        <span class="score">
-          {{ game.totalScore }}
-        </span>
+      <!-- Expanded Section -->
+      <div class="details" *ngIf="expandedGameId === game.id">
+
+        <div class="summary-grid">
+          <div>
+            <span>Par</span>
+            <strong>{{ game.totalPar }}</strong>
+          </div>
+
+          <div>
+            <span>Strokes</span>
+            <strong>{{ game.totalStrokes }}</strong>
+          </div>
+
+          <div>
+            <span>Score</span>
+            <strong>
+              {{ getScoreDiff(game) > 0 ? '+' : '' }}
+              {{ getScoreDiff(game) }}
+            </strong>
+          </div>
+
+          <div>
+            <span>Total Distance</span>
+            <strong>{{ getTotalDistance(game.holes) }}</strong>
+          </div>
+        </div>
+
+        <table class="hole-table">
+          <thead>
+            <tr>
+              <th>Hole</th>
+              <th>Par</th>
+              <th>Strokes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hole of game.holes">
+              <td>{{ hole.holeNumber }}</td>
+              <td>{{ hole.par }}</td>
+              <td>{{ hole.strokes }}</td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
+
     </div>
+
   </ng-container>
 
-  <!-- Loading state -->
   <ng-template #loading>
     <div class="empty">Loading games...</div>
   </ng-template>

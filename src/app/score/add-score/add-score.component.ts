@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Game, Hole } from '../model/game.model';
 import { ScoreService } from '../score.service';
+import { serverTimestamp } from '@angular/fire/firestore';
 
 @Component({
   standalone: true,
@@ -41,7 +42,7 @@ export class AddScoreComponent {
 
   async saveGame() {
     const game: Game = {
-      createdAt: new Date(),
+      createdAt: serverTimestamp() as any,
       totalPar: this.totalPar,
       totalStrokes: this.totalStrokes,
       holes: this.holes,

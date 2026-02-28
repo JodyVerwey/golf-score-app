@@ -1,29 +1,85 @@
 .history-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
   margin-top: 20px;
 }
 
 .game-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.game-card.expanded {
+  background: #f9fafc;
+}
+
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  border-radius: 10px;
-  background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-.left .date {
-  font-size: 0.85rem;
+.date {
+  font-size: 0.8rem;
   color: #777;
 }
 
-.score {
-  font-size: 1.4rem;
+.score-badge {
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #4e73df;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #4e73df;
+  color: white;
+}
+
+.score-badge.positive {
+  background: #e74a3b;
+}
+
+.score-badge.negative {
+  background: #1cc88a;
+}
+
+.score-badge.even {
+  background: #858796;
+}
+
+.details {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.summary-grid span {
+  font-size: 0.75rem;
+  color: #888;
+  display: block;
+}
+
+.hole-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.hole-table th,
+.hole-table td {
+  padding: 6px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
 }
 
 .empty {

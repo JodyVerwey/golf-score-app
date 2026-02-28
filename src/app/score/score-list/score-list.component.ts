@@ -5,20 +5,13 @@ import {
   collection,
   query,
   orderBy,
-  CollectionReference,
   collectionData,
-  Timestamp
+  CollectionReference
 } from '@angular/fire/firestore';
 import { Auth, authState } from '@angular/fire/auth';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-
-export interface Game {
-  id?: string;
-  courseName: string;
-  totalScore: number;
-  createdAt: Timestamp;
-}
+import { Game, Hole } from '../model/game.model';
 
 @Component({
   selector: 'app-score-list',
@@ -32,6 +25,8 @@ export class ScoreListComponent {
   private firestore = inject(Firestore);
   private auth = inject(Auth);
 
+  expandedGameId: string | null = null;
+
   games$ = authState(this.auth).pipe(
     switchMap(user => {
       if (!user) return of([] as Game[]);
@@ -39,11 +34,24 @@ export class ScoreListComponent {
       const gamesRef = collection(
         this.firestore,
         `users/${user.uid}/games`
-      ) as CollectionReference<Game>;   // 🔥 THIS IS THE FIX
+      ) as CollectionReference<Game>;
 
       const q = query(gamesRef, orderBy('createdAt', 'desc'));
 
       return collectionData(q, { idField: 'id' });
     })
   );
+
+  toggle(gameId: string) {
+    this.expandedGameId =
+      this.expandedGameId === gameId ? null : gameId;
+  }
+
+  getTotalDistance(holes: Hole[]): number {
+    return holes.reduce((sum, h) => sum + h.distance, 0);
+  }
+
+  getScoreDiff(game: Game): number {
+    return game.totalStrokes - game.totalPar;
+  }
 }
