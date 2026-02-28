@@ -1,0 +1,30 @@
+<h2>Game History</h2>
+
+<div class="history-container">
+  <ng-container *ngIf="games$ | async as games; else loading">
+    <!-- Empty state -->
+    <div *ngIf="games.length === 0" class="empty">No games played yet.</div>
+
+    <!-- Game cards -->
+    <div class="game-card" *ngFor="let game of games">
+      <div class="left">
+        <strong>{{ game.courseName }}</strong>
+
+        <div class="date">
+          {{ game.createdAt.toDate() | date: "mediumDate" }}
+        </div>
+      </div>
+
+      <div class="right">
+        <span class="score">
+          {{ game.totalScore }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Loading state -->
+  <ng-template #loading>
+    <div class="empty">Loading games...</div>
+  </ng-template>
+</div>

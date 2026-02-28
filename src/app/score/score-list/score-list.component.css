@@ -1,0 +1,32 @@
+.history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.game-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.left .date {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.score {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #4e73df;
+}
+
+.empty {
+  padding: 20px;
+  color: #999;
+}
