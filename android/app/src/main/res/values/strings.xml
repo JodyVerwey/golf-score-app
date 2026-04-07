@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">golf-score-app</string>
+    <string name="title_activity_main">golf-score-app</string>
+    <string name="package_name">com.gbggolf.app</string>
+    <string name="custom_url_scheme">com.gbggolf.app</string>
+</resources>
